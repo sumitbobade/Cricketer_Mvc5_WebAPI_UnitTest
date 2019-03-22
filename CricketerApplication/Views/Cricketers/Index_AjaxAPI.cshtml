@@ -1,0 +1,71 @@
+﻿@using DataModel;
+@model IEnumerable<DataModel.Cricketer>
+
+@{
+    ViewBag.Title = "Index_AjaxAPI";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Index_AjaxAPI</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ODI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Test)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grade)
+        </th>
+        <th></th>
+    </tr>
+    <tbody id="tableRows"></tbody>
+
+
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        LoadAll();
+    });
+    function LoadAll() {
+        $.ajax(
+            {
+                //url: '/api/PersonalDetails/GetPersonalDetails',
+                url: 'http://localhost:46853/api/Cricketers/',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data, status, xhr) {
+                    debugger;
+                    processDataMethod(data);
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                }
+            });
+    }
+
+    function processDataMethod(data) {
+        debugger;
+        var output = $("#tableRows");
+        output.empty();
+        for (var i = 0; i < data.length; i++) {
+            var person = data[i];
+            output.append("<tr><td><a href='javascript:ShowDetails(" + person.AutoId
+                + ")'>" + person.AutoId + "</a></td><td>" + person.FirstName + "</td><td>" +
+                person.LastName + "</td><td>" + person.Age + "</td><td>" + person.Active +
+                "</td><td><a style='color:red;' href='javascript:DeleteRecord(" + person.AutoId +
+                ")' title='Delete details'>Delete</a></td></tr>");
+        }
+    }
+</script>
