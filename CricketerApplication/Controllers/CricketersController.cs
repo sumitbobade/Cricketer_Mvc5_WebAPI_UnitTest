@@ -90,6 +90,7 @@ namespace CricketerApplication.Controllers
 
             return View(cricList);
 
+
             //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
